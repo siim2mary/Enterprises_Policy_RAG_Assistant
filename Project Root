@@ -1,0 +1,89 @@
+# 📚 Enterprise Policy RAG Assistant (Groq + LLaMA 3.1)
+
+A **production-grade Retrieval-Augmented Generation (RAG) system** for querying enterprise policy documents such as **HR policies, Leave & Holiday policies, and Government guidelines**.  
+The assistant provides **grounded, non-hallucinated answers** using only the uploaded documents.
+
+---
+
+## 🚀 Features
+
+- 🔍 **Document-grounded answers only** (no hallucinations)
+- ⚡ **Ultra-fast inference** using Groq + LLaMA 3.1
+- 🧠 **Local embeddings** (no API limits or costs)
+- 📄 Supports **multiple enterprise policy PDFs**
+- 🛡️ Safe fallback: *“I don’t know based on the documents provided”*
+- ⏱️ Sub-second response times
+
+---
+
+## 🧠 Architecture Overview
+
+PDF Documents
+↓
+Document Loader
+↓
+Text Chunking
+↓
+Local Embeddings (HuggingFace)
+↓
+Chroma Vector Store
+↓
+Retriever
+↓
+Groq LLaMA 3.1
+↓
+
+
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|---------|-----------|
+| LLM | Groq – LLaMA 3.1 |
+| Embeddings | HuggingFace (`BAAI/bge-small-en-v1.5`) |
+| Vector Store | Chroma |
+| Framework | LangChain (Modern modular stack) |
+| Language | Python |
+| Environment | `.env` configuration |
+
+---
+
+## 📁 Project Structure
+Enterprise-policy-rag-assistant/
+│
+├── data/
+│ ├── IIA HR Policy.pdf
+│ ├── Leave-and-Holiday-Policy.pdf
+│ └── guidelinesgovtentities.pdf
+│
+├── vectorstore_policy/
+├── .env
+|---ingest.py
+├── app.py
+└── README.md
+
+
+---
+
+## 🔑 Environment Setup
+
+Create a `.env` file in the root directory:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+📦 Installation
+pip install -U \
+  langchain \
+  langchain-community \
+  langchain-core \
+  langchain-groq \
+  langchain-chroma \
+  langchain-huggingface \
+  sentence-transformers \
+  python-dotenv \
+  unstructured[pdf]
+
+
+Grounded Answer
