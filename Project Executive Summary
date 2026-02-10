@@ -1,0 +1,83 @@
+ENTERPRISES POLICY RAG ASSISTANT
+***********************************************************************************************
+
+This project is an Enterprise Policy RAG (Retrieval-Augmented Generation) Assistant. It is designed to act as an intelligent intermediary between complex corporate documentation and employees, providing instant, factual answers to policy-related queries.
+
+1. Project Core Objective
+***************************
+The project aims to solve the "information discovery" problem in large organizations. Instead of manually searching through lengthy PDFs like the IIA HR Policy or CERT-In Security Guidelines, users can ask natural language questions and receive precise answers based strictly on the provided context.
+
+2. Tech Stack (Tools & Libraries)
+**************************************
+The project utilizes a modern, 2026-compliant AI stack optimized for speed and data privacy:
+
+LLM (Large Language Model): Llama-3.1-8b-instant via Groq Cloud. This provides near-instant inference (sub-second response times).
+
+Vector Database: ChromaDB. An optimized local database used to store and search document "embeddings."
+
+Embeddings Model: BAAI/bge-small-en-v1.5 via HuggingFace. These are processed locally on the CPU, ensuring your enterprise text is not sent to external embedding APIs.
+
+Orchestration Framework: LangChain (including langchain-classic and langchain-community). This manages the "chain" of events from searching the database to prompting the AI.
+
+Frontend: Streamlit. Provides a clean, professional web-based chat interface for users.
+
+Document Parsing: PyPDFLoader for extracting structured text from PDF files.
+
+3. Process & Workflow
+**********************************************************
+The project followed a four-stage development lifecycle:
+
+Ingestion: PDFs are loaded from the /data folder and broken into smaller "chunks" (1,000 characters) to ensure the AI can focus on specific rules without being overwhelmed.
+
+Vectorization: These chunks are converted into mathematical vectors (embeddings) and stored in a local vectorstore_policy directory.
+
+Retrieval: When a user asks a question, the system searches the vector database for the top 4-6 most relevant text snippets.
+
+Generation (RAG): These snippets are sent to Llama 3.1 with a strict instruction: "Answer ONLY using this context. If not present, say you don't know."
+
+4. Expected Results
+**********************************************
+Accuracy: The assistant correctly identifies specific nuances, such as the 45-day limit for backdated leave or the 3-day threshold for requiring a medical certificate.
+
+Speed: Average response times are between 0.5 to 1.1 seconds, significantly faster than manual searching.
+
+Hallucination Control: By using a low temperature setting (0.1), the system successfully refuses to answer questions not covered in the documents (e.g., home office furniture reimbursements), maintaining trust and reliability.
+
+Ease of Use: A non-technical HR or IT staff member can update the entire knowledge base simply by adding a new PDF and running the ingest.py script.
+
+
+1. Project Overview
+The Enterprise Policy RAG Assistant is a specialized AI solution designed to automate the retrieval of information from complex corporate documentation. By leveraging Retrieval-Augmented Generation (RAG), the system allows employees to ask natural language questions and receive precise, factual answers based strictly on the organization’s internal PDFs, such as HR manuals, leave policies, and security guidelines.
+
+2. Core Components & Tech Stack
+The project utilizes a high-performance, privacy-conscious technology stack:
+
+LLM Engine: Llama-3.1-8b-instant via Groq Cloud, providing sub-second inference speeds.
+
+Vector Database: ChromaDB, used for high-dimensional similarity searches of policy text.
+
+Local Embeddings: BAAI/bge-small-en-v1.5 via HuggingFace, ensuring document data is vectorized locally for enhanced security.
+
+Framework: LangChain, managing the orchestration between document loaders, splitters, and the retrieval chain.
+
+Interface: Streamlit, offering a professional, web-based chat experience for end-users.
+
+3. Implementation Process
+The project followed a structured four-phase workflow:
+
+Ingestion: PDF documents are parsed and divided into overlapping chunks (1000 characters) to preserve context.
+
+Vectorization: Local embedding models convert text chunks into numerical vectors stored in a persistent local database.
+
+Retrieval: When a query is made, the system performs a semantic search to find the most relevant policy sections.
+
+Generation: The LLM synthesizes an answer using only the retrieved snippets, with a low "temperature" setting (0.1) to eliminate hallucinations.
+
+4. Expected Results & Value Proposition
+Operational Efficiency: Reduces the time spent by HR and IT teams answering repetitive policy questions.
+
+Accuracy & Reliability: The system successfully handles specific logic, such as the 45-day backdated leave limit or sickness proof requirements.
+
+Scalability: New policies (e.g., CERT-In Security Guidelines) can be added instantly by running a single ingestion script.
+
+Data Privacy: By using local embeddings and targeted retrieval, sensitive enterprise data remains controlled and secure.
